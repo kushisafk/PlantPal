@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlantPal - Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">🌱 PlantPal</div>
+
+            <ul class="menu">
+                <li class="menu-item active" onclick="showSection(event, 'dashboard')">
+                    <span class="menu-icon">🏠</span>
+                    <span>Dashboard</span>
+                </li>
+                <li class="menu-item" onclick="showSection(event, 'myplants')">
+                    <span class="menu-icon">🌿</span>
+                    <span>My Plants</span>
+                </li>
+                <li class="menu-item" onclick="showSection(event, 'reminders')">
+                    <span class="menu-icon">🔔</span>
+                    <span>Reminders</span>
+                </li>
+                <li class="menu-item" onclick="showSection(event, 'calendar')">
+                    <span class="menu-icon">📅</span>
+                    <span>Calendar</span>
+                </li>
+                <li class="menu-item" onclick="showSection(event, 'database')">
+                    <span class="menu-icon">📚</span>
+                    <span>Plant Database</span>
+                </li>
+                <li class="menu-item" onclick="showSection(event, 'insights')">
+                    <span class="menu-icon">📊</span>
+                    <span>Insights</span>
+                </li>
+                <li class="menu-item" onclick="showSection(event, 'settings')">
+                    <span class="menu-icon">⚙️</span>
+                    <span>Settings</span>
+                </li>
+            </ul>
+
+            <div class="user-profile">
+                <div class="user-avatar">👤</div>
+                <div class="user-info">
+                    <h4>Plant Parent</h4>
+                    <p>Free Plan</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="header">
+                <div>
+                    <h1>My Garden 🌱</h1>
+                    <p style="color: #718096; margin-top: 5px;">Thursday, December 11, 2025</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-secondary">
+                        <span>🔍</span> Search
+                    </button>
+                    <button class="btn btn-primary" onclick="toggleAddPlant()">
+                        <span>➕</span> Add Plant
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">🌿</div>
+                    <div class="stat-value" id="totalPlants">0</div>
+                    <div class="stat-label">Total Plants</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">💧</div>
+                    <div class="stat-value" id="needsWater">0</div>
+                    <div class="stat-label">Needs Water</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-value" id="healthyPlants">0</div>
+                    <div class="stat-label">Healthy</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🌸</div>
+                    <div class="stat-value" id="bloomingPlants">0</div>
+                    <div class="stat-label">Blooming</div>
+                </div>
+            </div>
+
+            <!-- Add Plant Form -->
+            <div class="add-plant-section" id="addPlantForm">
+                <h2 style="margin-bottom: 20px;">Add New Plant</h2>
+                <form id="plantForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Plant Name *</label>
+                            <input type="text" id="plantName" placeholder="e.g., Monstera Deliciosa" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Plant Type *</label>
+                            <select id="plantType" required>
+                                <option value="">Select type...</option>
+                                <option value="Succulent">Succulent</option>
+                                <option value="Tropical">Tropical</option>
+                                <option value="Cactus">Cactus</option>
+                                <option value="Fern">Fern</option>
+                                <option value="Flowering">Flowering</option>
+                                <option value="Herb">Herb</option>
+                                <option value="Foliage">Foliage</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Location</label>
+                            <input type="text" id="location" placeholder="e.g., Living Room">
+                        </div>
+                        <div class="form-group">
+                            <label>Watering Frequency (days) *</label>
+                            <input type="number" id="waterFreq" min="1" max="30" placeholder="e.g., 7" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Fertilizing Frequency (days)</label>
+                            <input type="number" id="fertilizeFreq" min="1" max="90" placeholder="e.g., 30">
+                        </div>
+                        <div class="form-group">
+                            <label>Light Requirements</label>
+                            <select id="lightReq">
+                                <option value="Low">Low Light</option>
+                                <option value="Medium">Medium Light</option>
+                                <option value="Bright">Bright Indirect</option>
+                                <option value="Direct">Direct Sunlight</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label>Notes</label>
+                        <textarea id="notes" placeholder="Add any special care instructions..."></textarea>
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <button type="submit" class="btn btn-primary" style="flex: 1;">
+                            <span>✅</span> Add Plant
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="toggleAddPlant()">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Plants Section -->
+            <div class="plants-section">
+                <div class="section-header">
+                    <h2 class="section-title">Your Plants</h2>
+                    <div class="filter-tabs">
+                        <div class="filter-tab active" onclick="filterPlants(event, 'all')">All</div>
+                        <div class="filter-tab" onclick="filterPlants(event, 'urgent')">Urgent</div>
+                        <div class="filter-tab" onclick="filterPlants(event, 'healthy')">Healthy</div>
+                    </div>
+                </div>
+                <div class="plants-grid" id="plantsGrid">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🌱</div>
+                        <h3>No plants yet!</h3>
+                        <p style="margin-top: 10px;">Click "Add Plant" to start your green journey</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
